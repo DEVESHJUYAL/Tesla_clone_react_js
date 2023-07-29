@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close'
@@ -8,6 +8,20 @@ import { useSelector } from 'react-redux';
 function Header() {
     const [burgerStatus, setBurgerStatus] = useState(false);
     const cars = useSelector(selectCars)
+    useEffect(() => {
+        // Add event listener to handle scroll event
+        const handleScroll = () => {
+          setBurgerStatus(false);
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+    
+        // Clean up the event listener when the component unmounts
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+    
     return (
         <Container>
             <a>
